@@ -3,7 +3,21 @@
 		<script>
 			function run() {
 				container = container || document.getElementById("container");
-				words = ["test"]
+				words = ["qwertyuiopasdgfhjklzxcvbnm"];
+				currentword = Object.create(wordsProto);
+				
+			}
+			wordsProto = {
+				string = "";
+				characters = [];
+				rightCharacters = [];
+				wrongCharacters = [];
+			};
+			function fillWord(wordobject, string) {
+				wordobject.string = string;
+				for (i in string.split("")) {
+					//string.indexOf("a");
+				}
 			}
 		</script>
 	</head>
