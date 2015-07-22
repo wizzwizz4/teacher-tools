@@ -4,21 +4,28 @@
 			function run() {
 				container = container || document.getElementById("container");
 				words = ["qwertyuiopasdgfhjklzxcvbnm"];
-				currentword = Object.create(wordsProto);
-				
+				currentword = Object.create(wordsProto).fillWord();
 			}
 			wordsProto = {
-				string = "";
-				characters = [];
-				rightCharacters = [];
-				wrongCharacters = [];
-			};
-			function fillWord(wordobject, string) {
-				wordobject.string = string;
-				for (i in string.split("")) {
-					//string.indexOf("a");
+				string: "",
+				characters: [],
+				rightCharacters: [],
+				wrongCharacters: [],
+				fillWord: function(string) {
+					this.string = string;
+					for (i in string.split("")) {
+						if (this.characters.indexOf(i) == -1) {
+							this.characters.push(i);
+						}
+					};
+					return this;
+				},
+				tryChar: function(string) {
+					if (Array.prototype.concat(this.rightCharacters, this.wrongCharacters).indexOf(string) == -1) {
+						//here
+					}
 				}
-			}
+			};
 		</script>
 	</head>
 	<body id="container" onload="run();">
