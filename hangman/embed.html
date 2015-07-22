@@ -22,7 +22,14 @@
 				},
 				tryChar: function(string) {
 					if (Array.prototype.concat(this.rightCharacters, this.wrongCharacters).indexOf(string) == -1) {
-						//here
+						if (this.characters.indexOf(string) == -1) {
+							this.wrongCharacters.push(string);
+							return false;
+						} else {
+							//here
+						}
+					} else {
+						return null;
 					}
 				}
 			};
