@@ -6,7 +6,9 @@
 				container = container || document.getElementById("container");
 				words = ["qwertyuiopasdgfhjklzxcvbnm"];
 				currentword = Object.create(wordsProto).fillWord(words[0]);
+				makeString("Use your keyboard!");
 				document.onkeydown = function(e) {
+					alert(e.key);
 					var correct = currentword.tryChar(e.key);
 					if (correct !== null) {
 						if (correct) {
@@ -14,6 +16,8 @@
 						} else {
 							container.innerHTML = makeString("That letter's not in the word!");
 						}
+					} else {
+						container.innerHTML = makeString("You've already tried" + e.key + "!");
 					}
 				}
 			}
@@ -56,6 +60,7 @@
 						} else {
 							endString = endString + i;
 						}
+						endString = endString + " ";
 					}
 					return endString;
 				}
