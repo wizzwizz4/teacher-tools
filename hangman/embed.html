@@ -4,7 +4,17 @@
 			function run() {
 				container = container || document.getElementById("container");
 				words = ["qwertyuiopasdgfhjklzxcvbnm"];
-				currentword = Object.create(wordsProto).fillWord();
+				currentword = Object.create(wordsProto).fillWord(words[0]);
+				document.onkeydown = function(e) {
+					var correct = currentword.tryKey(e.key);
+					if (correct !== null) {
+						if (correct) {
+							container.innerHTML = makeString("Correct!");
+						} else {
+							container.innerHTML = makeString("That letter's not in the word!");
+						}
+					}
+				}
 			}
 			wordsProto = {
 				string: "",
@@ -13,7 +23,7 @@
 				wrongCharacters: [],
 				fillWord: function(string) {
 					this.string = string;
-					for (i in string.split("")) {
+					for (var i in string.split("")) {
 						if (this.characters.indexOf(i) == -1) {
 							this.characters.push(i);
 						}
@@ -21,18 +31,37 @@
 					return this;
 				},
 				tryChar: function(string) {
-					if (Array.prototype.concat(this.rightCharacters, this.wrongCharacters).indexOf(string) == -1) {
-						if (this.characters.indexOf(string) == -1) {
-							this.wrongCharacters.push(string);
-							return false;
+					if (string.length == 1) {
+						if (Array.prototype.concat(this.rightCharacters, this.wrongCharacters).indexOf(string) == -1) {
+							if (this.characters.indexOf(string) == -1) {
+								this.wrongCharacters.push(string);
+								return false;
+							} else {
+								this.rightCharacters.push(string);
+								return true;
+							}
 						} else {
-							//here
+							return null;
 						}
 					} else {
-						return null;
+						throw new Error("wordsobject tryChar given \""+string+"\", not one character long");
 					}
+				},
+				getState: function() {
+					var endString = "";
+					for (var i in this.string.split("")) {
+						if (this.rightCharacters.indexOf(i) == -1) {
+							endString = endString + "_";
+						} else {
+							endString = endString + i;
+						}
+					}
+					return endString;
 				}
 			};
+			function makeString(message) {
+				return (message + "<br />" + currentword.getState() + "<br /><br />Incorrect Letters:<br />" + currentword.rightCharacters);
+			}
 		</script>
 	</head>
 	<body id="container" onload="run();">
