@@ -28,9 +28,10 @@
 				wrongCharacters: [],
 				fillWord: function(string) {
 					this.string = string;
-					for (var i in string.split("")) {
-						if (this.characters.indexOf(i) == -1) {
-							this.characters.push(i);
+					var stringarray = string.split("")
+					for (var i = 0; i < stringarray.length, i++) {
+						if (this.characters.indexOf(stringarray[i]) == -1) {
+							this.characters.push(stringarray[i]);
 						}
 					};
 					return this;
