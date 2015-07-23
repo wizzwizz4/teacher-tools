@@ -6,7 +6,7 @@
 				words = ["qwertyuiopasdgfhjklzxcvbnm"];
 				currentword = Object.create(wordsProto).fillWord(words[0]);
 				document.onkeydown = function(e) {
-					var correct = currentword.tryKey(e.key);
+					var correct = currentword.tryChar(e.key);
 					if (correct !== null) {
 						if (correct) {
 							container.innerHTML = makeString("Correct!");
